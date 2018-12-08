@@ -24,3 +24,12 @@ String::~String()
 		_str = nullptr;
 	}
 }
+
+char* String::getString() const{
+		return _str;
+	}
+
+std::ostream & operator<<(std::ostream &os, const String &str){
+	os << str.getString();
+	return os;
+}
