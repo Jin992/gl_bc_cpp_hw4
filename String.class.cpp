@@ -1,6 +1,6 @@
 #include "String.class.h"
 
-String::String():_str(nullptr)
+String::String():_str(new char())
 {}
 
 String::String(const char *str): _str(nullptr) {
@@ -86,6 +86,64 @@ String & String::append(size_t n, char c) {
 	String &tmp = append(str, 0);
 	delete [] str;
 	return tmp;
+}
+
+
+
+int String::compare (const char* s) const {
+	return strcmp(_str, s);
+}
+
+int String::compare (const String& str) const noexcept {
+	return compare(str._str);
+}
+
+int String::compare (size_t pos, size_t len, const char* s) const {
+	if (s == nullptr){
+		throw std::invalid_argument("compare nullptr argument");
+	}
+	char *tmp = new char[len + 1]();
+	memcpy(tmp, _str + pos, len);
+	int cmp_res = strcmp(tmp, s);
+	delete [] tmp;
+	return cmp_res;
+	
+}
+
+int String::compare (size_t pos, size_t len, const String& str) const{
+	return compare(pos, len, str._str);
+}
+
+int String::compare (size_t pos, size_t len, const String& str,
+             size_t subpos, size_t sublen) const {
+	char *tmp = new char[sublen + 1]();
+	memcpy(tmp, str._str + subpos, sublen);
+	int cmp_res = compare(pos, len, tmp);
+	delete [] tmp;
+	return cmp_res;
+}
+
+int String::compare (size_t pos, size_t len, const char* s, size_t n) const {
+	char *tmp = new char[n + 1]();
+	memcpy(tmp, s, n);
+	std::cout << tmp << std::endl;
+	int cmp_res = compare(pos, len, tmp);
+	delete [] tmp;
+	return cmp_res;
+}
+
+void String::swap (String& str){
+	char * tmp_ptr = _str;
+	_str = str._str;
+	str._str = tmp_ptr;
+
+}
+
+void String::clear() noexcept{
+	if (_str != nullptr){
+		delete [] _str;
+		_str = new char();
+	}
 }
 
 std::ostream & operator<<(std::ostream &os, const String &str){

@@ -17,6 +17,17 @@ public:
 	String & append(const char* s, size_t n);
 	String & append(size_t n, char c);
 
+	int compare (const String& str) const noexcept;
+	int compare (size_t pos, size_t len, const String& str) const;
+	int compare (size_t pos, size_t len, const String& str,
+             size_t subpos, size_t sublen) const;
+	int compare (const char* s) const;
+	int compare (size_t pos, size_t len, const char* s) const;
+	int compare (size_t pos, size_t len, const char* s, size_t n) const;
+
+	void swap (String& str);
+
+
 
 private:
 	char *_str;
