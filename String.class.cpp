@@ -1,39 +1,46 @@
 #include "String.class.h"
+#include <cstring>
 
-static char *str_join(const char *str1, const char *str2, size_t len = 0) {
-	if (str1 == nullptr || str2 == nullptr){
-		return nullptr;
+namespace {
+	char *str_join(const char *str1, const char *str2, size_t len = 0) {
+		size_t len_str1 = 0;
+
+		if (str2 == nullptr){
+			return nullptr;
+		}
+		if (str1 != nullptr){
+			len_str1 = strlen(str1);
+		}
+		if (len_str1 == 0 && *str2 == '\0') {
+			return new char();
+		}
+		
+		if (len == 0) {
+			len = strlen(str2);
+		}
+		char *res_str = new char [len_str1 + len + 1]();
+		memcpy(res_str, str1, len_str1);
+		memcpy(res_str + len_str1, str2, len);
+		return res_str;
 	}
-	if (*str1 == '\0' && *str2 == '\0') {
-		return new char();
+
+	/* str_filler allocate memory, need to delete [] manualy, after usage*/
+	char * str_filler(size_t n, char c){
+		char *res = new char[n + 1];
+		memset(res, c, n);
+		res[n] = '\0';
+		return res;
 	}
-	size_t len_str1 = strlen(str1);
-	if (len == 0) {
-		len = strlen(str2);
-	}
-	char *res_str = new char [len_str1 + len + 1]();
-	memcpy(res_str, str1, len_str1);
-	memcpy(res_str + len_str1, str2, len);
-	return res_str;
 }
 
-/* str_filler allocate memory, need to delete [] manualy, after usage*/
-static char * str_filler(size_t n, char c){
-	char *res = new char[n + 1]();
-	memset(res, c, n);
-	return res;
-}
-
-
-String::String():_str(new char())
+String::String():_str(nullptr)
 {}
 
 String::String(const char *str): _str(nullptr) {
 	if (str != nullptr) {
 		std::size_t len = strlen(str);
 
-		_str = new char[len + 1];
-		memset(_str, 0, len + 1);
+		_str = new char[len + 1]();
 		memcpy(_str, str, len);
 		}
 	else {
@@ -55,8 +62,11 @@ String::~String() {
 	}
 }
 
-char* String::c_str() const {
-		return _str;
+const char* String::c_str() const {
+	if (_str == nullptr) {
+		return "\0";
+	}
+	return _str;
 }
 
 void String::set_str(char *s){
@@ -69,7 +79,10 @@ void String::set_str(char *s){
 }
 
 size_t String::length() const {
-		return strlen(_str);
+	if (_str == nullptr){
+		return 0;
+	}
+	return strlen(_str);
 }
 
 

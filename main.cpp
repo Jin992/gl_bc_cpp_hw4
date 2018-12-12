@@ -1,39 +1,40 @@
-#include <iostream>
 #include "String.class.h"
+#include <iostream>
 #include <string>
+#include <cstring>
 
-static void test_case(const char *test_name, const char *test_case, const char *str1, const char *str2){
-	std::cout << "Test name: " << test_name << " ";
-	if (strcmp(str1, str2) == 0){
-		std::cout << "\033[1;32m[OK]\033[0m" << std::endl;
+namespace {
+	void test_case(const char *test_name, const char *test_case, const char *str1, const char *str2){
+		std::cout << "Test name: " << test_name << " ";
+		if (strcmp(str1, str2) == 0){
+			std::cout << "\033[1;32m[OK]\033[0m" << std::endl;
+		}
+		else
+		{
+			std::cout << "\033[1;31m[KO]\033[0m" << std::endl;
+		}
+		std::cout << "Test case: " << test_case << std::endl;
+		std::cout << "Result:" << std::endl;
+		std::cout << "\033[1;33mstd::string :" << str1 << "\033[0m" << std::endl;
+		std::cout << "\033[1;33mString class:" << str2 << "\033[0m" << std::endl;
+		std::cout << "-----------------------------------------" << std::endl << std::endl;
 	}
-	else
-	{
-		std::cout << "\033[1;31m[KO]\033[0m" << std::endl;
-	}
-	std::cout << "Test case: " << test_case << std::endl;
-	std::cout << "Result:" << std::endl;
-	std::cout << "\033[1;33mstd::string :" << str1 << "\033[0m" << std::endl;
-	std::cout << "\033[1;33mString class:" << str2 << "\033[0m" << std::endl;
-	
-	std::cout << "-----------------------------------------" << std::endl << std::endl;
-}
 
-static void test_case(const char *test_name, const char *test_case, int cmp1, int cmp2){
-	std::cout << "Test name: " << test_name << " ";
-	if (cmp1 == cmp2){
-		std::cout << "\033[1;32m[OK]\033[0m" << std::endl;
+	void test_case(const char *test_name, const char *test_case, int cmp1, int cmp2){
+		std::cout << "Test name: " << test_name << " ";
+		if (cmp1 == cmp2){
+			std::cout << "\033[1;32m[OK]\033[0m" << std::endl;
+		}
+		else
+		{
+			std::cout << "\033[1;31m[KO]\033[0m" << std::endl;
+		}
+		std::cout << "Test case: " << test_case << std::endl;
+		std::cout << "Result:" << std::endl;
+		std::cout << "\033[1;33mstd::string :" << cmp1 << "\033[0m" << std::endl;
+		std::cout << "\033[1;33mString class:" << cmp2 << "\033[0m" << std::endl;
+		std::cout << "-----------------------------------------" << std::endl << std::endl;
 	}
-	else
-	{
-		std::cout << "\033[1;31m[KO]\033[0m" << std::endl;
-	}
-	std::cout << "Test case: " << test_case << std::endl;
-	std::cout << "Result:" << std::endl;
-	std::cout << "\033[1;33mstd::string :" << cmp1 << "\033[0m" << std::endl;
-	std::cout << "\033[1;33mString class:" << cmp2 << "\033[0m" << std::endl;
-	
-	std::cout << "-----------------------------------------" << std::endl << std::endl;
 }
 
 int main(){

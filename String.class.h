@@ -1,8 +1,6 @@
-#include <iostream>
-#include <cstring>
-
 #ifndef STRING_JIN_H
 #define STRING_JIN_H
+#include <iostream>
 
 class String
 {
@@ -12,7 +10,7 @@ public:
 	String(const String &other);
 	virtual ~String();
 
-	char *c_str() const;
+	const char *c_str() const;
 	void set_str(char *);
 	size_t length() const;
 	String & append(const String &str);
